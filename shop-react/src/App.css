@@ -1,0 +1,118 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* SEARCH BAR 
+ */
+ .searchBar_child {
+  display: flex; /* Sử dụng flexbox để căn chỉnh các phần tử */
+  align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.searchBar_child .form-input {
+  flex: 1; /* Input sẽ mở rộng để lấp đầy không gian còn lại */
+  margin-right: 10px; /* Khoảng cách giữa input và icon */
+}
+
+.searchBar_child svg {
+  width: 24px; /* Kích thước của icon */
+  height: 24px;
+  fill: #000; /* Màu sắc của icon (nếu icon là SVG có thể thay đổi fill) */
+}
+
+
+.searchBar {
+  padding-bottom: 90px;
+}
+
+.search-icon {
+  margin-right: 10px;
+  /* Khoảng cách giữa biểu tượng và input */
+}
+
+.microphone-icon {
+  margin-left: 10px;
+  /* Khoảng cách giữa biểu tượng và input */
+  color: #555;
+  /* Màu của biểu tượng */
+  cursor: pointer;
+  /* Đổi con trỏ chuột thành con trỏ tay khi hover */
+}
+
+.form .fa-search {
+
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #9ca3af;
+
+}
+.searchBar_child{ 
+  border: 0.3px solid black;
+}
+.form span {
+  position: absolute;
+  right: 17px;
+  top: 13px;
+  padding: 2px;
+  border-left: 1px solid #d1d5db;
+
+}
+
+.left-pan {
+  padding-left: 7px;
+}
+
+.left-pan i {
+
+  padding-left: 10px;
+}
+
+.form-input {
+
+  height: 55px;
+  text-indent: 33px;
+  border-radius: 10px;
+}
+
+.form-input:focus {
+
+  box-shadow: none;
+  border: none;
+}
