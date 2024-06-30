@@ -1,9 +1,31 @@
 import React, { Component } from 'react';
 
-class Main extends Component {
+class Index extends Component {
+    constructor()  { 
+        super();
+        this.productApi ='http://127.0.0.1:8000/api/getListProduct' ;
+        this.state =  { 
+            products : [],
+        }
+    }
+
+    getProducts = async ()=> { 
+        const response  = await fetch(this.productApi );
+        if (response.ok)  { 
+            const products = await response.json();
+            console.log(products);
+        }
+    }
+
+    componentDidMount = ()=> { 
+        this.getProducts();
+    }
     render() {
+        this.getProducts(); 
         return (
+          
             <div>
+         
                 <div id="carouselExampleControls" className="position-relative carousel slide" data-bs-ride="carousel">
                     <div className="carousel-inner">
                         <div className="carousel-item active">
@@ -181,4 +203,4 @@ class Main extends Component {
     }
 }
 
-export default Main;
+export default Index;

@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Product from './Product';
+import ProductDetails from './ProductDetails';
 import SearchBar from './SearchBar';
-
+import config from '../config.json'
+const { SERVER_API } = config;
 class ProductList extends Component {
     state = {
         products: [],
+        productId: null,
+        isLoading: false,
         filteredProducts: [], // Danh sách sản phẩm được lọc
         searchTerm: '', // Từ khóa tìm kiếm
         sortBy: '' // Trường sắp xếp: 'priceLowToHigh' hoặc 'priceHighToLow'
     };
 
     componentDidMount() {
-        axios.get('http://127.0.0.1:8000/api/getListProduct')
+        axios.get(`${SERVER_API}/getListProduct`)
             .then(response => {
-                this.setState({ 
+                this.setState({
                     products: response.data,
                     filteredProducts: response.data // Khởi tạo filteredProducts ban đầu là danh sách sản phẩm đầy đủ
                 });
@@ -27,6 +31,13 @@ class ProductList extends Component {
     // Xử lý thay đổi từ khóa tìm kiếm
     handleSearchChange = (event) => {
         this.setState({ searchTerm: event.target.value });
+    }
+
+
+    handleClickProduct = (id) => {
+        this.setState({
+            productId: id
+        })
     }
 
     // Xử lý khi submit form tìm kiếm
@@ -52,26 +63,39 @@ class ProductList extends Component {
     }
 
     render() {
+
+         const {products,productId,isLoading } = this.state
         return (
-            <div className="container">
-                <h2 className="section-header">DANH SÁCH CÁC SẢN PHẨM</h2>
-                <SearchBar
-                    onSubmit={this.handleSearchSubmit}
-                    onChangeSort={this.handleChangeSort}
-                />
-                <div className="row">
-                    {this.state.filteredProducts.map(product => (
-                        <div key={product.id} className="col-lg-4 col-md-6 mb-4">
-                            <Product
-                                tag={product.tag}
-                                imgSrc={product.imgSrc}
-                                title={product.title}
-                                price={product.price}
-                                sizes={product.sizes}
-                            />
+            <div>
+                {isLoading ? (
+                    <h2>Loading</h2>
+                ) : productId ? (
+                    <ProductDetails id={this.productId} />
+                ) : (
+
+                    <div className="container">
+                        <h2 className="section-header">DANH SÁCH CÁC SẢN PHẨM</h2>
+                        <SearchBar
+                            onSubmit={this.handleSearchSubmit}
+                            onChangeSort={this.handleChangeSort}
+                        />
+                        <div className="row">
+                            {this.state.filteredProducts.map(product => (
+                                <div onClick={() => {
+                                    this.handleClickProduct(product.id)
+                                }} key={product.id} className="col-lg-4 col-md-6 mb-4">
+                                    <Product
+                                        tag={product.tag}
+                                        imgSrc={product.imgSrc}
+                                        title={product.title}
+                                        price={product.price}
+                                        sizes={product.sizes}
+                                    />
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                )}
             </div>
         );
     }
